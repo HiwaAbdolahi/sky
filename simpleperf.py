@@ -202,7 +202,7 @@ def server():
                                                                                                                                                                         
                                                                                                                                                                         
     serverSocket.listen(10)                                                                                                                                             
-    print('--------------------------------------------- A simpelperf client connection to server ',server_ip, 'port',serverPort,'\-------------------------------------
+    print('--------------------------------------------- A simpelperf client connection to server ',server_ip, 'port',serverPort,'\-------------------------------------')
     while True:                                                                                                                                                         
         connectionSocket, addr = serverSocket.accept()  # accept a connection                                                                                           
                                                                                                                                                                         
@@ -271,6 +271,6 @@ if args.server and not args.client:
 # and display the bandwidth based on how much data was received and how much                                                                                            
 # time elapsed during the connection. A server should read data in chunks of 1000                                                                                       
 # bytes. For the sake of simplcity, assume 1 KB = 1000 Bytes, and 1 MB = 1000                                                                                           
-# KB.                                                                                                                                                                   
-message.txt
-47 KB
+# KB.    
+# message.txt
+# 47 KB                                                                                                                                                               
