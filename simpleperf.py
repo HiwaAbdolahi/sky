@@ -231,7 +231,8 @@ def newCon(server_ip,port,client_sd):
     print('ID\t\t\tInterval\tSent\tBandwith\n')                                                                                                                         
     print(server_ip,':',port,'\t0.0 -',endTime-startTime,'\t',int(send_data),'MB\t','%.2f'%rate)                                                                        
                                                                                                                                                                         
-                                                                                                                                                                        
+
+"""                                                                                                                                                                     
 def client():                                                                                                                                                           
     client_sd = socket(AF_INET, SOCK_STREAM)                                                                                                                            
     server_ip = "127.0.0.1"                                                                                                                                             
@@ -273,4 +274,38 @@ if args.server and not args.client:
 # bytes. For the sake of simplcity, assume 1 KB = 1000 Bytes, and 1 MB = 1000                                                                                           
 # KB.    
 # message.txt
-# 47 KB                                                                                                                                                               
+# 47 KB      
+"""                                                                                                                                                         
+
+def client():
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_ip = "127.0.0.1"
+    server_port = 8088
+    
+    print(f'Connecting to server {server_ip} on port {server_port}')
+    try:
+        client_socket.connect((server_ip, server_port))
+    except:
+        print('Failed to connect to server')
+        sys.exit()
+    
+    print('Connected to server')
+    
+    # send data to server
+    data = b'\x00' * 1000
+    time = 25
+    total_data_sent = 0
+    for i in range(time):
+        client_socket.sendall(data)
+        total_data_sent += len(data)
+    
+    print(f'Total data sent: {total_data_sent} bytes')
+    
+    # receive acknowledgement from server
+    data = client_socket.recv(1024)
+    print(f'Received acknowledgement from server: {data}')
+    
+    client_socket.close()
+
+if __name__ == '__main__':
+    client()
