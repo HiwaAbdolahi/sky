@@ -70,8 +70,8 @@ def clientConnect(server_ip,port):
     socket.close()                                                                                                                                                      
                                                                                                                                                                         
 def Checkip(val):                                                                                                                                                       
-    if(val == '127.0.0.1'):                                                                                                                                             
-        return '127.0.0.1'                                                                                                                                              
+    if(val == args.serverip):                                                                                                                                             
+        return args.serverip                                                                                                                                               
     ip_check = re.match(r"[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}", str(val))                                                                                       
     ip_OK = bool(ip_check)                                                                                                                                              
     if(ip_OK):                                                                                                                                                          
@@ -136,7 +136,7 @@ parser.add_argument('-s', '--server', action='store_true')
                                                                                                                                                                         
 #offer list of options: you must select from the choices                                                                                                                
                                                                                                                                                                         
-parser.add_argument('-b', '--bind', type=int, default='10.0.0.2')                                                                                                       
+parser.add_argument('-b', '--bind', type=str, default='10.0.0.2')                                                                                                       
                                                                                                                                                                         
 parser.add_argument('-f', '--format', type=str, default="MB", choices=('MB,KB,B,mb,kb,b'))                                                                              
                                                                                                                                                                         
@@ -188,8 +188,8 @@ def handleClient(connection, addr):
 def server():                                                                                                                                                           
                                                                                                                                                                         
     serverSocket = socket(AF_INET,SOCK_STREAM)                                                                                                                          
-    server_ip= "127.0.0.1"                                                                                                                                              
-    serverPort = 8088                                                                                                                                                   
+    server_ip= args.bind                                                                                                                                              
+    serverPort = args.port                                                                                                                                                   
                                                                                                                                                                         
                                                                                                                                                                         
     #This code tries to bind with a given port and retries until an open port is found                                                                                  
@@ -214,7 +214,7 @@ def newCon(server_ip,port,client_sd):
     sendData = 0                                                                                                                                                        
     data = '0' * 1000                                                                                                                                                   
     startTime = time.time()                                                                                                                                             
-    endTime = time.time() + 25                                                                                                                                          
+    endTime = time.time() + args.time                                                                                                                                          
                                                                                                                                                                         
     while time.time() < endTime:                                                                                                                                        
         client_sd.send(data.encode())                                                                                                                                   
@@ -232,11 +232,11 @@ def newCon(server_ip,port,client_sd):
     print(server_ip,':',port,'\t0.0 -',endTime-startTime,'\t',int(send_data),'MB\t','%.2f'%rate)                                                                        
                                                                                                                                                                         
 
-"""                                                                                                                                                                     
+                                                                                                                                                                 
 def client():                                                                                                                                                           
     client_sd = socket(AF_INET, SOCK_STREAM)                                                                                                                            
-    server_ip = "127.0.0.1"                                                                                                                                             
-    port = 8088                                                                                                                                                         
+    server_ip = args.serverip                                                                                                                                             
+    port = args.port                                                                                                                                                         
                                                                                                                                                                         
                                                                                                                                                                         
     print('--------------------------------------------- A simpleperf server is listening on port',port,'\---------------------------------------------')               
@@ -274,38 +274,5 @@ if args.server and not args.client:
 # bytes. For the sake of simplcity, assume 1 KB = 1000 Bytes, and 1 MB = 1000                                                                                           
 # KB.    
 # message.txt
-# 47 KB      
-"""                                                                                                                                                         
-
-def client():
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_ip = "127.0.0.1"
-    server_port = 8088
-    
-    print(f'Connecting to server {server_ip} on port {server_port}')
-    try:
-        client_socket.connect((server_ip, server_port))
-    except:
-        print('Failed to connect to server')
-        sys.exit()
-    
-    print('Connected to server')
-    
-    # send data to server
-    data = b'\x00' * 1000
-    time = 25
-    total_data_sent = 0
-    for i in range(time):
-        client_socket.sendall(data)
-        total_data_sent += len(data)
-    
-    print(f'Total data sent: {total_data_sent} bytes')
-    
-    # receive acknowledgement from server
-    data = client_socket.recv(1024)
-    print(f'Received acknowledgement from server: {data}')
-    
-    client_socket.close()
-
-if __name__ == '__main__':
-    client()
+# 47 KB      test 
+                                                                                                                                                       
