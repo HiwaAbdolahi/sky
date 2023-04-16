@@ -183,8 +183,7 @@ def handleClient(connection, addr):
     print(addr[0],':',addr[1],'\t0.0 -','%.2f'%(endTime-startTime),'\t',int(send_data),'MB\t','%.2f'%rate)                                                              
                                                                                                                                                                         
     connection.close()                                                                                                                                                  
-
-#####################                                                                                                                                                                   
+                                                                                                                                                                        
                                                                                                                                                                         
 def server():                                                                                                                                                           
                                                                                                                                                                         
@@ -237,7 +236,7 @@ def newCon(server_ip,port,client_sd):
 def client():                                                                                                                                                           
     client_sd = socket(AF_INET, SOCK_STREAM)                                                                                                                            
     server_ip = args.serverip                                                                                                                                             
-    port = args.port                                                                                                                                                         
+    port = args.port                                                                                                                                                          
                                                                                                                                                                         
                                                                                                                                                                         
     print('--------------------------------------------- A simpleperf server is listening on port',port,'\---------------------------------------------')               
