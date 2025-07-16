@@ -1,18 +1,51 @@
-Simpleperf
-Simpleperf is a Python script for measuring network performance between hosts in a network. It uses the iperf tool for measuring bandwidth and latency, and can be used to evaluate the performance of different network topologies, protocols, and configurations.
+# ☁️ Sky & Nettverksprotokoller
 
-Requirements
-Python 3.x
-iperf (both client and server)
-Mininet (for creating virtual network topologies)
-Usage
-Create a Mininet network topology using the portfolio-topology.py script.
-Start iperf servers on the desired hosts using the iperf-server.sh script.
-Run Simpleperf with the desired parameters, such as duration, protocol, and number of parallel connections.
-Example usage: python3 simpleperf.py -s 10.0.1.2 :> run the server 
-python3 simpleperf.py -c -I 10.0.1.2 -p 8080 -t 25 -P 2 :> make parallel connection on 10.0.1.2
+Dette prosjektet er en avansert implementasjon av et simulert nettverksmiljø utviklet med **Mininet** og Python. Her kombineres nettverkstopologi, socket-programmering, virtuelle maskiner og egendefinerte transportprotokoller for å analysere båndbredde, pakkefeil og pålitelighet.
+
+---
+
+## 🚀 Teknologi og verktøy
+
+- 🐍 **Python** (socket, threading, argparse)
+- 💻 **Mininet** (virtuell nettverksemulering)
+- 🌐 **Custom transportprotokoller** (Stop-and-Wait, Go-Back-N, Selective Repeat)
+- 🛰️ **Linux routing & ethtool** (finjustering av grensesnitt og flytkontroll)
+- ⚙️ Virtuelle miljøer (f.eks. VirtualBox)
+
+---
+
+## ⚡ Funksjoner
+
+✅ Design og konfigurasjon av dynamiske nettverk med flere routere, switcher og hosts  
+✅ Implementasjon av pålitelige transportprotokoller (SAW, GBN, SR) for datastrømmer  
+✅ Håndtering av avanserte testcases som *packet loss*, *reordering*, *duplicates*  
+✅ Logging og analyse av båndbredde, RTT, tap og throughput  
+✅ Avansert bruk av Mininet for delay, båndbredde og køkontroll
+
+---
+
+## 💡 Hvordan bruke
+
+### Server
+
+`python server.py -s --port 8088 --reliable SR --testcase SKIP_ACK --windowsize 5`
+
+
+### Klient
+
+`python client.py -c --ip 10.0.0.2 --port 8088 --file path/to/file.txt --reliable SR --windowsize 5`
 
 
 
-Output
-Simpleperf will output the measured bandwidth and latency in MB/s and ms, respectively. The results are saved to a file in the measurements directory, with a filename indicating the hosts and parameters used.
+📄 Dokumentasjon
+Se PDF-rapportene og retningslinjene i repoet for detaljert topologi, testoppsett og analyser.
+Eksempler: portfolio-guidelines.pdf, portfolio-topology.py
+
+### 🌟 Læringsutbytte>
+#### -Bygge komplekse nettverkstopologier og simulere virkelige feilscenarier
+
+#### -Dyp forståelse av transportlagsprotokoller og pålitelig dataoverføring
+
+#### -Avansert IP-routing og nettverksadministrasjon
+
+####-Kombinasjon av teori og praktisk programmering for å analysere ytelse
